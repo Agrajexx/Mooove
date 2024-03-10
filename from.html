@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Form to Telegram</title>
+    <style>
+        .page {
+            padding: 3.125rem;
+        }
+        
+        .form {
+            max-width: 18.75rem;
+            margin: 0 auto;
+            display: grid;
+            gap: 0.9375rem;
+        }
+        
+        .form_input {
+            width: 100%;
+            padding: 0.625rem;
+            height: 2.5rem;
+        }
+        
+        textarea.form_input {
+            height: 6.25rem;
+        }
+        
+        .form_button {
+            background-color: #0e5da7;
+            height: 2.5rem;
+            color: white;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <main class="page">
+            <form action="#" class="form">
+                <input required type="text" name="name" placeholder="Name" class="form_input">
+                <input required type="email" name="email" placeholder="E-mail" class="form_input">
+                <textarea required name="message" placeholder="Message" class="form_input"></textarea>
+                <button class="form_button" type="submit">Send</button>
+            </form>
+        </main>
+    </div>
+    <script>
+        "use strict";
+
+        const form = document.querySelector('.form');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            sendMessage(form);
+        });
+
+        async function sendMessage(form) {
+            const formData = new FormData(form);
+            if (formData) {
+                const url = 'sendmessage.php';
+                const response = await fetch(url, {
+                    method: "POST",
+                    body: formData
+                });
+
+                if (response.ok) {
+                    form.reset();
+                    alert('Form sent!');
+                } else {
+                    alert('Error');
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
