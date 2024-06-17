@@ -3,58 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Push Notifications Example</title>
+    <title>Feedback Form</title>
+    <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+    (function(){
+    emailjs.init({
+    publicKey: "w5kRTugjsSFN5MAUZ",
+    });
+    })();
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: url('your-background-image.jpg') no-repeat center center fixed; 
+            background-size: cover;
+        }
+
+        .feedback-form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .feedback-form {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 500px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .feedback-form:hover {
+            transform: scale(1.05);
+        }
+
+        .feedback-form h2 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #777;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
-    <h1>Push Notifications Example</h1>
-    <button onclick="requestNotificationPermission()">Notify Me!</button>
+    <div class="feedback-form-container">
+        <form class="feedback-form" id="feedback-form">
+            <h2>Feedback</h2>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="feedback">Your Feedback</label>
+                <textarea id="feedback" name="feedback" rows="5" required></textarea>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
-        function requestNotificationPermission() {
-            if (!('Notification' in window)) {
-                console.log('This browser does not support notifications');
+        (function() {
+            emailjs.init('service_v1r5hpl'); // Replace with your EmailJS user ID
+        })();
+
+        document.getElementById('feedback-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Validate name field to contain only letters
+            const name = document.getElementById('name').value;
+            if (!/^[a-zA-Z]+$/.test(name)) {
+                alert('Name should only contain letters.');
                 return;
             }
 
-            Notification.requestPermission().then(function(permission) {
-                if (permission === 'granted') {
-                    displayNotification();
-                } else {
-                    console.warn('Notification permission denied');
-                }
-            });
-        }
+            // Collect form data
+            const templateParams = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                feedback: document.getElementById('feedback').value,
+            };
 
-        function displayNotification() {
-            if (!('serviceWorker' in navigator)) {
-                console.log('Service Worker not supported');
-                return;
-            }
-
-            navigator.serviceWorker.ready.then(function(registration) {
-                registration.showNotification('Hello!', {
-                    body: 'This is a notification from your web app!',
-                    icon: 'movie%20hub1.png'
+            // Send email
+            emailjs.send('service_v1r5hpl', 'template_anzaukc', templateParams)
+                .then(function(response) {
+                    alert('Feedback sent successfully!', response.status, response.text);
+                }, function(error) {
+                    alert('Failed to send feedback. Please try again later.', error);
                 });
-            }).catch(function(error) {
-                console.error('Service Worker registration failed:', error);
-            });
-        }
-    </script>
-
-    <script>
-        // Register service worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('sw.js')
-                    .then(function(registration) {
-                        console.log('Service Worker registered with scope:', registration.scope);
-                    })
-                    .catch(function(error) {
-                        console.error('Service Worker registration failed:', error);
-                    });
-            });
-        }
+        });
     </script>
 </body>
 </html>
