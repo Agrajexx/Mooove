@@ -1,139 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Form</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            background: url('your-background-image.jpg') no-repeat center center fixed; 
-            background-size: cover;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grandpa's News Hub</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  
+  <style>
+    /* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      background: #007bff;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Two columns */
+      gap: 10px;
+      padding: 10px;
+      overflow-y: auto;
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      background-color: #f0f0f0;
+    }
+    .card img {
+      width: 90px;
+      height: 90px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .card p {
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #333;
+    }
+    footer {
+      background: #007bff;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 0.9rem;
+    }
 
-        .feedback-form-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .feedback-form {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 500px;
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .feedback-form:hover {
-            transform: scale(1.05);
-        }
-
-        .feedback-form h2 {
-            margin-bottom: 20px;
-            color: #333;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: #777;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #28a745;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-    </style>
+    /* Mobile-Friendly Adjustments */
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr 1fr; /* Maintain two columns on smaller screens */
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="feedback-form-container">
-        <form class="feedback-form" id="feedback-form">
-            <h2>Feedback</h2>
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="feedback">Your Feedback</label>
-                <textarea id="feedback" name="feedback" rows="5" required></textarea>
-            </div>
-            <button type="submit">Submit</button>
-        </form>
+  <header>
+     News <b> മലയാളം</b>
+  </header>
+  <main>
+    <div class="card" onclick="openChannel('https://www.youtube.com/live/-8d8-c0yvyU?feature=shared')">
+      <img src="media1.jpg" alt="Media one">
+      <p>Media one</p>
     </div>
+    <div class="card" onclick="openChannel('https://www.youtube.com/live/HGOiuQUwqEw?feature=shared')">
+    <img src="reporter.png" alt="reporter">
+    <p>Reporter tv</p>
+    </div>
+    <div class="card" onclick="openChannel('https://www.youtube.com/live/tgBTspqA5nY?feature=shared')">
+    <img src="Manoramanews.jpg" alt="Manorama News">
+    <p>Manorama News</p>
+    </div>
+    <div class="card" onclick="openChannel('https://www.youtube.com/live/1wECsnGZcfc?feature=shared')">
+    <img src="24.jpg" alt="24 News">
+    <p>24 News</p>
+    </div>
+    <div class="card" onclick="openChannel('https://www.youtube.com/live/Ko18SgceYX8?feature=shared')">
+    <img src="aisanet.jpg" alt="Asianet News">
+    <p>Asianet News</p>
+    </div>
+    <div class="card" onclick="openChannel('https://www.youtube.com/live/YGEgelAiUf0?feature=shared')">
+    <img src="240919780014.jpg" alt="News 18">
+    <p>Mathrubhumi News</p>
+    </div>
+    <div class="card" onclick="openChannel('https://www.youtube.com/live/DxK8pVYckWo?feature=shared')">
+      <img src="janam.png" alt="Janam TV">
+      <p>Janam TV</p>
+    </div>
+    
+    
+    <div class="card" onclick="openChannel('https://www.youtube.com/live/1pzmRi4ur9Y?feature=shared')">
+      <img src="news18.png" alt="News 18">
+      <p>News 18</p>
+    </div>
+    
+    
+  </main>
+  <footer>
+     News <b> മലയാളം</b>
+  </footer>
 
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function() {
-            emailjs.init({
-                publicKey: "w5kRTugjsSFN5MAUZ",
-            });
-        })();
-
-        document.getElementById('feedback-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            // Validate name field to contain only letters
-            const name = document.getElementById('name').value;
-            if (!/^[a-zA-Z]+$/.test(name)) {
-                alert('Name should only contain letters.');
-                return;
-            }
-
-            // Collect form data
-            const templateParams = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                feedback: document.getElementById('feedback').value,
-            };
-
-            // Send email
-            emailjs.send('service_v1r5hpl', 'template_anzaukc', templateParams)
-                .then(function(response) {
-                    alert('Feedback sent successfully!', response.status, response.text);
-                }, function(error) {
-                    alert('Failed to send feedback. Please try again later.', error);
-                });
-        });
-    </script>
+  <script>
+    function openChannel(url) {
+      window.open(url, '_blank');
+    }
+  </script>
 </body>
 </html>
